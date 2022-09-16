@@ -1,0 +1,50 @@
+{% extends "base.html "%}
+{% block title %}Register{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previous Runs</title>
+</head>
+<body>
+    <form action="/checknotes" method="POST">
+    <input name="account_id" type="hidden" value="{{session['id']}}">
+        <div>
+            <section>
+                <Table >
+                    <h2>Which game you are playing?</h2>
+                    <table>
+                        <tr>
+                            <th>Games:</th>
+                        </tr>
+                        {% for one_game in games %}
+                        <tr>
+                            <th>{{one_game.game}}</th>
+                            <th><input type="radio" name="game" value="{{one_game.game}}"></th>
+                        </tr>
+                        {% endfor %}
+                    </tr>
+                </table>
+            </section>
+        </div>
+        <div class="scene">
+            <section>
+                <table>
+                    <th>Scenes:</th>
+                    {% for one_scene in scenes %}
+                    <tr>
+                        <th>{{one_scene.scene}}</th> 
+                        <th><input type="radio" name="scene" value="{{one_scene.scene}}"></th>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <button>Check Notes</button>
+            </section>
+        </div>
+    </form>
+</body>
+</html>
+{% endblock %}

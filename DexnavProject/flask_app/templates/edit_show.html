@@ -1,0 +1,86 @@
+{% extends "base.html "%}
+{% block title %}Register{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit {{show.title}}</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+        {% if messages %}                            <!-- check if there are any messages -->
+            {% for message in messages %}            <!-- loop through the messages -->
+                <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+<nav>
+    <a href="/logout"><button>Logout</button></a> | <a href="/dashboard"><button>TV Shows</button></a>
+</nav>
+<div class="container">
+    <h1>Edit {{show.title}}</h1>
+    <form action="/update/{{show.id}}/show" method="POST"></form>
+        <input name="id" type="hidden" value="{{show.id}}">
+        <section>
+            <h2>Title:</h2>
+            <input type="text" name="title" id="name" value="{{show.title}}">
+        </section>
+        <section>
+            <h2>Network:</h2>
+            <input type="text" name="network" id="name" value="{{show.network}}">
+        </section>
+        <section>
+            <h2>Release Date:</h2>
+            <input type="date" name="date" id="date" value="{{show.date}}">
+        </section>
+        <section>
+            <h2>Description:</h2>
+            <textarea name="description" rows="4" cols="30">{{show.description}}</textarea>
+        </section>
+        <button>Update</button>
+    </form>
+</div>
+</body>
+</html>
+
+<form action="/update/{{scene.id}}/show" method="POST">
+    <table>
+        <th>Scenes:</th>
+        {% for one_scene in scenes %}
+        <tr>
+            <th>{{one_scene.scene}}</th>
+        </tr>
+        {% endfor %}
+    </table>
+</form>
+    
+<form action="/update/{{trainer.id}}/show" method="POST">
+    <table>
+        <th>Trainers:</th>
+        {% for one_trainer in trainers %}
+        <tr>
+            <th>{{one_trainer.trainer}}</th>
+        </tr>
+        {% endfor %}
+    </table>
+</form>
+    
+<form action="/update/{{wildmon.id}}/show" method="POST">
+    <table class="mons">
+        <tr>
+            <th>Wildmons:</th>
+            <th>Where:</th>
+        </tr>
+        {% for one_wildmon in wildmons %}
+        <tr>
+            <th>{{one_wildmon.wildMon}}</th>
+            <th>{{one_wildmon.location}}</th>
+        </tr>
+        {% endfor %}
+        
+    </table>
+</form>
+{% endblock %}

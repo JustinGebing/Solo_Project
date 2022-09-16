@@ -1,0 +1,75 @@
+{% extends "base.html "%}
+{% block title %}Register{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NavDex Setup Scene
+    </title>
+</head>
+<style>
+    .container{
+        display: flex;
+    }
+</style>
+<body>
+    {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+        {% if messages %}                            <!-- check if there are any messages -->
+            {% for message in messages %}            <!-- loop through the messages -->
+                <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+<h1>Help me set up you new Journey!!</h1>
+<div class="container">
+    <form action="/new/notes" method="POST">
+        <input name="account_id" type="hidden" value="{{session['id']}}">
+        <section>
+        <div class="game">
+            <Table >
+                <h2>Which game you are playing?</h2>
+                <table>
+                    <tr>
+                        <th>Games:</th>
+                    </tr>
+                        {% for one_game in games %}
+                    <tr>
+                        <th>{{one_game.game}}</th>
+                        <th><input type="radio" name="game" value="{{one_game.game}}"></th>
+                    </tr>
+                        {% endfor %}
+                    </tr>
+                </table>
+            </Table>
+        </div>
+        </section>
+        <section>
+        <div class="scene">
+            <table>
+                <th>Scenes:</th>
+                {% for one_scene in scenes %}
+                <tr>
+                    <th>{{one_scene.scene}}</th> 
+                    <th><input type="radio" name="scene" value="{{one_scene.scene}}"></th>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        </section>
+        <section>
+            <h2>Encounter:</h2>
+            <input type="text" name="encounter" id="name">
+        </section>
+        <section>
+            <h2>Have any special thoughts about this area?</h2>
+            <textarea name="routeNotes" rows="4" cols="30"></textarea>
+        </section>
+        <button>Add</button>
+    </form>
+</div>
+</body>
+</html>
+{% endblock %}

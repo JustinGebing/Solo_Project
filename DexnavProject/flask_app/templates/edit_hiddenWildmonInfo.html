@@ -1,0 +1,42 @@
+{% extends "base.html "%}
+{% block title %}Register{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Edit Pokemon</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+        {% if messages %}                            <!-- check if there are any messages -->
+            {% for message in messages %}            <!-- loop through the messages -->
+                <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form action="/update/{{wildmon.id}}/wildmon" method="POST">
+        <input name="id" type="hidden" value="{{wildmon.id}}">
+        <table>
+            <tr>
+                <th>Wild Pokemon:</th>
+            </tr>
+            <tr>
+                <th>
+                    <section>
+                        <h2>Mon:</h2>
+                        <input type="text" name="wildMon" id="name" value="{{wildmon.wildMon}}">
+                        <h2>Where/How:</h2>
+                        <input type="text" name="location" id="name" value="{{wildmon.location}}">
+                    </section>
+                </th>
+            </tr>
+        </table>
+        <button>Update</button>
+    </form>
+</div>
+</body>
+</html>
+{% endblock %}

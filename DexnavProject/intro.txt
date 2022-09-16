@@ -1,0 +1,19 @@
+Justin Gebing:
+    DexNav
+    Python
+    https://github.com/JustinGebing/Solo_Project
+
+
+Description:
+    For this project I looked to do something I have always wanted but couldn't find myself online. Me and my friends like to challenge ourselves when we play Pokemon games to make 
+them even harder. These challenges are called Nuzzlockes and during a nuzzlocke there is a lot of information you need to remember and record but I haven't found a resource that will
+allow you to track those things online. There are some resources out there that you could use but they are mostly disorgaznized, not user friendly, and hard to interact with. I aim
+to change that by reorganizing this information in a new way that you could also keep track of what you used to be succerssful. Eventually I would like to attached the Pokemon API
+but for this project I am going to focus on adding a follow/frineds system so that you can see what other people have done to be successful in their runs. 
+
+Todo:
+-Week 1: BackEnd Crud
+-week 2: FrontEnd and Follow system
+
+Backlog:
+-API
