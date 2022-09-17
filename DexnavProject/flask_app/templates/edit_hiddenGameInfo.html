@@ -1,5 +1,5 @@
 {% extends "base.html "%}
-{% block title %}Register{% endblock %}
+{% block title %}Edit{% endblock %}
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
@@ -12,33 +12,30 @@
     rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 </head>
 <body>
-    {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
-        {% if messages %}                            <!-- check if there are any messages -->
-            {% for message in messages %}            <!-- loop through the messages -->
-                <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-
-    <form action="/update/{{game.id}}/game" method="POST">
-        <input name="id" type="hidden" value="{{game.id}}">
-        <table>
-            <tr>
-                <th>Games:</th>
-            </tr>
-            <tr>
-                <th>
-                    <section>
-                        <h2>Title:</h2>
+<div class="container text-center">
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-4">
+            <h1>Pokemon {{game.game}}</h1>
+        </div>
+        <div class="row">
+            <form action="/update/{{game.id}}/game" method="POST">
+                <input name="id" type="hidden" value="{{game.id}}">
+                <section>
+                    <h2>Update Title:</h2> 
+                        {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+                            {% if messages %}                            <!-- check if there are any messages -->
+                                {% for message in messages %}            <!-- loop through the messages -->
+                                    <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
                         <input type="text" name="game" id="name" value="{{game.game}}">
+                        <button type="submit" class="btn btn-outline-primary">Update</button>
                     </section>
-                </th>
-            </tr>
-            </tr>
-        </table>
-        <button>Update</button>
-    </form>
-</div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 {% endblock %}

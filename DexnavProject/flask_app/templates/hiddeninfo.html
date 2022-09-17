@@ -1,5 +1,5 @@
 {% extends "base.html "%}
-{% block title %}Register{% endblock %}
+{% block title %}Admin{% endblock %}
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
@@ -10,194 +10,160 @@
     <title>Dev Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 </head>
-<style>
-    h1{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .container{
-        display: flex;
-        justify-content: space-evenly;
-    }
-
-    form{
-        margin-left: 50px;
-    }
-
-    .action{
-        margin-left: 0px;
-    }
-
-    .mons{
-        display: flex;
-    }
-</style>
-
 <body>
-    {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
-        {% if messages %}                            <!-- check if there are any messages -->
-            {% for message in messages %}            <!-- loop through the messages -->
-                <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
 <!-- This page is for the developer to add in New Games, Trainers, Scenes, and Wildmons -->
-
-<h1>Admin Inputs</h1>
-<div class="container">
-    <div class="row-cols-4">
-        <div class="col">
-            <form action="/new/games" method="POST">
-                <input name="1" type="hidden" value="{{session['id']}}">
-                <section>
-                    <h2>Game:</h2>
-                    <input type="text" name="game" id="name">
-                </section>
-                <button>Add</button>
-            </form>
-            
-            <table class="table table-striped">
-                <tbody>
-                    <tr>
-                        <th>Games:</th>
-                        <th>Actions:</th>
-                        <th></th>
-                    </tr>
-                {% for one_game in games %}
-                <tr>
-                    <th>{{one_game.game}}</th>
-                    {% if account.id == session['id'] %}
-                    <th>
-                        <a href="/edit/{{one_game.id}}/game"> <button>Edit</button></a>
-                    </th>
-                    <th>
-                        <form class="action" action="/delete/{{one_game.id}}/game" method="POST">
-                            <input name="id" type="hidden" value="{{one_game.id}}">
-                            <button type="submit">Delete</button>
-                        </form>
-                    </th>
-                </tr>
-                {% endif %}
+<div class="container text-center">
+    <div class="row justify-content-md-center">
+        <h1>Admin Inputs</h1>
+        {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+            {% if messages %}                            <!-- check if there are any messages -->
+                {% for message in messages %}            <!-- loop through the messages -->
+                    <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
                 {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    
-    <div class="row-cols-4">
-        <div class="col">
-            <form action="/new/scene" method="POST">
-                <input name="1" type="hidden" value="{{session['id']}}">
-                <section>
-                    <h2>Scene:</h2>
-                    <input type="text" name="scene" id="name">
-                </section>
-                <button>Add</button>
-            </form>
-            
-            <table class="table table-striped">
-                <tbody>
-                    <th>Scenes:</th>
-                    <th>Actions:</th>
-                    <th></th>
-                    {% for one_scene in scenes %}
-                    <tr>
-                        <th>{{one_scene.scene}}</th>
-                        {% if account.id == session['id'] %}
-                        <th>
-                            <a href="/edit/{{one_scene.id}}/scene"> <button>Edit</button></a>
-                        </th>
-                        <th>
-                            <form class="action" action="/delete/{{one_scene.id}}/scene" method="POST">
-                                <input name="id" type="hidden" value="{{one_scene.id}}">
-                                <button type="submit">Delete</button>
-                            </form>
-                        </th>
-                    </tr>
-                    {% endif %}
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-        
-    <div class="row-cols-4">
-        <form action="/new/trainers" method="POST">
-            <input name="1" type="hidden" value="{{session['id']}}">
-            <section>
-                <h2>Trainer:</h2>
-                <input type="text" name="trainer" id="name">
-            </section>
-            <button>Add</button>
-        </form>
-
-        <table class="table table-striped">
-            <tbody>
-                <th>Trainers:</th>
-                <th>Actions:</th>
-                <th></th>
-                {% for one_trainer in trainers %}
-                <tr>
-                    <th>{{one_trainer.trainer}}</th>
-                    {% if account.id == session['id'] %}
-                    <th>
-                        <a href="/edit/{{one_trainer.id}}/trainer"> <button>Edit</button></a>
-                    </th>
-                    <th>
-                        <form class="action" action="/delete/{{one_trainer.id}}/trainer" method="POST">
-                            <input name="id" type="hidden" value="{{one_trainer.id}}">
-                            <button type="submit">Delete</button>
-                        </form>
-                    </th>
-                </tr>
-                {% endif %}
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-        
-    <div class="row-cols-4">
-        <form action="/new/wildmons" method="POST" class="row g-3"></form>
-        <div class="col-auto">
-            <input name="1" type="hidden" value="{{session['id']}}">
-            <h2>Mon:</h2>
-            <input type="text" name="wildMon" id="name">
-            <h2>Where:</h2>
-            <input type="text" name="location" id="name">
-            <button>Add</button>
-        </div>
-        </form>
-        
-        <table class="table table-striped">
-            <tbody>
-                <tr>
-                    <th>Wildmons:</th>
-                    <th>Where:</th>
-                    <th>Actions:</th>
-                    <th></th>
-                </tr>
-                {% for one_wildmon in wildmons %}
-                <tr>
-                    <th>{{one_wildmon.wildMon}}</th>
-                    <th>{{one_wildmon.location}}</th>
-                    {% if account.id == session['id'] %}
-                    <th>
-                        <a href="/edit/{{one_wildmon.id}}/wildmon"> <button>Edit</button></a>
-                    </th>
-                    <th>
-                        <form class="action" action="/delete/{{one_wildmon.id}}/wildmon" method="POST">
-                            <input name="id" type="hidden" value="{{one_wildmon.id}}">
-                            <button type="submit">Delete</button>
-                        </form>
-                </th>
-            </tr>
             {% endif %}
-            {% endfor %}
-            </tbody>
-        </table>
+        {% endwith %}
+        <div class="container">
+            <div class="row">
+                <div class="col-3">
+                    <section class="col-9">
+                        <form action="/new/games" method="POST">
+                            <input type="text" class="form-control" name="game" placeholder="Game">
+                            <button type="submit" class="btn btn-outline-primary">Add</button>
+                        </form>
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                            <th>Games:</th>
+                            <th>Actions:</th>
+                            <th></th>
+                        </tr>
+                        {% for one_game in games %}
+                        <tr>
+                            <th>{{one_game.game}}</th>
+                            {% if account.id == session['id'] %}
+                            <th>
+                                <a href="/edit/{{one_game.id}}/game"> <button type="button" class="btn btn-outline-primary" type="submit">Edit</button></a>
+                            </th>
+                            <th>
+                                <form class="action" action="/delete/{{one_game.id}}/game" method="POST">
+                                    <input name="id" type="hidden" value="{{one_game.id}}">
+                                    <button type="submit" class="btn btn-outline-primary">Delete</button>
+                                </form>
+                            </th>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-3">
+                    <form action="/new/scene" method="POST">
+                        <input name="1" type="hidden" value="{{session['id']}}">
+                        <input type="text" class="form-control" name="scene" placeholder="Scene">
+                        <button type="submit" class="btn btn-outline-primary">Add</button>
+                    </form>
+                    <table class="table table-striped">
+                        <tbody>
+                            <th>Scenes:</th>
+                            <th>Actions:</th>
+                            <th></th>
+                            {% for one_scene in scenes %}
+                            <tr>
+                                <th>{{one_scene.scene}}</th>
+                                {% if account.id == session['id'] %}
+                                <th>
+                                    <a href="/edit/{{one_scene.id}}/scene"> <button type="button" class="btn btn-outline-primary" type="submit">Edit</button></a>
+                                </th>
+                                <th>
+                                    <form class="action" action="/delete/{{one_scene.id}}/scene" method="POST">
+                                        <input name="id" type="hidden" value="{{one_scene.id}}">
+                                        <button type="submit" class="btn btn-outline-primary">Delete</button>
+                                    </form>
+                                </th>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-3">
+                    <form action="/new/trainers" method="POST">
+                        <input name="1" type="hidden" value="{{session['id']}}">
+                        <section>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text" class="form-control" name="trainer" placeholder="Trainer">
+                                    <button type="submit" class="btn btn-outline-primary">Add</button>
+                                </div>
+                            </div>
+                        </section>
+                    </form>
+                    
+                    <table class="table table-striped">
+                        <tbody>
+                            <th>Trainers:</th>
+                            <th>Actions:</th>
+                            <th></th>
+                            {% for one_trainer in trainers %}
+                            <tr>
+                                <th>{{one_trainer.trainer}}</th>
+                                {% if account.id == session['id'] %}
+                                <th>
+                                    <a href="/edit/{{one_trainer.id}}/trainer"> <button type="submit" class="btn btn-outline-primary">Edit</button></a>
+                                </th>
+                                <th>
+                                    <form class="action" action="/delete/{{one_trainer.id}}/trainer" method="POST">
+                                        <input name="id" type="hidden" value="{{one_trainer.id}}">
+                                        <button type="submit" class="btn btn-outline-primary">Delete</button>
+                                    </form>
+                                </th>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <form action="/new/wildmons" method="POST">
+                            <input type="text" class="form-control" name="wildMon" placeholder="Pokemon">
+                            <input type="text" class="form-control" name="location" placeholder="Location">
+                                <button type="submit" class="btn btn-outline-primary">Add</button>
+                        </form>
+                    </div>
+                    
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th>Wildmons:</th>
+                                <th>Where:</th>
+                                <th>Actions:</th>
+                                <th></th>
+                            </tr>
+                            {% for one_wildmon in wildmons %}
+                            <tr>
+                                <th>{{one_wildmon.wildMon}}</th>
+                                <th>{{one_wildmon.location}}</th>
+                                {% if account.id == session['id'] %}
+                                <th>
+                                    <a href="/edit/{{one_wildmon.id}}/wildmon"> <button type="submit" class="btn btn-outline-primary">Edit</button></a>
+                                </th>
+                                <th>
+                                    <form class="action" action="/delete/{{one_wildmon.id}}/wildmon" method="POST">
+                                        <input name="id" type="hidden" value="{{one_wildmon.id}}">
+                                        <button type="submit" class="btn btn-outline-primary">Delete</button>
+                                    </form>
+                                </th>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 </body>
 </html>

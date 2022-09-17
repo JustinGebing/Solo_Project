@@ -1,5 +1,5 @@
 {% extends "base.html "%}
-{% block title %}Register{% endblock %}
+{% block title %}Edit{% endblock %}
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
@@ -10,32 +10,30 @@
     <title>Admin Edit Scene</title>
 </head>
 <body>
-    {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
-        {% if messages %}                            <!-- check if there are any messages -->
-            {% for message in messages %}            <!-- loop through the messages -->
-                <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-    <form action="/update/{{scene.id}}/scene" method="POST">
-        <input name="id" type="hidden" value="{{scene.id}}">
-        <table>
-            <tr>
-                <th>Scenes:</th>
-            </tr>
-            <tr>
-                <th>
+    <div class="container text-center">
+        <div class="row justify-content-md-center">
+            <div class="col col-lg-4">
+                <h1>Scenes:</h1>
+            </div>
+            <div class="row">
+                <form action="/update/{{scene.id}}/scene" method="POST">
+                    <input name="id" type="hidden" value="{{scene.id}}">
                     <section>
                         <h2>Title:</h2>
-                        <input type="text" name="scene" id="name" value="{{scene.scene}}">
+                            {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+                                {% if messages %}                            <!-- check if there are any messages -->
+                                    {% for message in messages %}            <!-- loop through the messages -->
+                                        <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %}
+                            <input type="text" name="scene" id="name" value="{{scene.scene}}">
+                            <button type="submit" class="btn btn-outline-primary">Update</button>
                     </section>
-                </th>
-            </tr>
-            </tr>
-        </table>
-        <button>Update</button>
-    </form>
-</div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 {% endblock %}

@@ -1,5 +1,5 @@
 {% extends "base.html "%}
-{% block title %}Register{% endblock %}
+{% block title %}Edit{% endblock %}
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
@@ -10,32 +10,30 @@
     <title>Admin Edit Trainer</title>
 </head>
 <body>
-    {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
-        {% if messages %}                            <!-- check if there are any messages -->
-            {% for message in messages %}            <!-- loop through the messages -->
-                <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-    <form action="/update/{{trainer.id}}/trainer" method="POST">
-        <input name="id" type="hidden" value="{{trainer.id}}">
-        <table>
-            <tr>
-                <th>Trainers:</th>
-            </tr>
-            <tr>
-                <th>
+    <div class="container text-center">
+        <div class="row justify-content-md-center">
+            <div class="col col-lg-4">
+                <h1>Trainers:</h1>
+            </div>
+            <div class="row">
+                <form action="/update/{{trainer.id}}/trainer" method="POST">
+                    <input name="id" type="hidden" value="{{trainer.id}}">
                     <section>
                         <h2>Title:</h2>
+                        {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+                            {% if messages %}                            <!-- check if there are any messages -->
+                                {% for message in messages %}            <!-- loop through the messages -->
+                                    <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
                         <input type="text" name="trainer" id="name" value="{{trainer.trainer}}">
+                        <button type="submit" class="btn btn-outline-primary">Update</button>
                     </section>
-                </th>
-            </tr>
-            </tr>
-        </table>
-        <button>Update</button>
-    </form>
-</div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 {% endblock %}

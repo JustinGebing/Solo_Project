@@ -1,7 +1,10 @@
 from flask_app import app
 from flask import render_template, redirect, request, flash, session
-from flask_app.models.game import Games
 from flask_app.models.account import Account
+from flask_app.models.scene import Scenes
+from flask_app.models.game import Games
+from flask_app.models.wildmon import WildMons
+from flask_app.models.trainer import Trainers
 from flask_bcrypt import Bcrypt
 bcrypt=Bcrypt(app)
 
@@ -17,7 +20,16 @@ def result():
 
 @app.route('/process/game')
 def process_game():
-    return render_template('hiddeninfo.html')
+    account_data = {
+        'id': session['id']
+    }
+    account = Account.get_one(account_data)
+    All_scenes = Scenes.get_all()
+    All_games = Games.get_all()
+    All_trainers = Trainers.get_all()
+    All_Wildmons = WildMons.get_all()
+
+    return render_template('hiddeninfo.html', scenes=All_scenes, games=All_games, trainers=All_trainers, wildmons=All_Wildmons, account=account)
 
 @app.route('/new/games', strict_slashes=False, methods=['POST'])
 def new_game():
